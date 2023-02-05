@@ -1,66 +1,53 @@
-// const express = require('express')
-// const app = express()
-// const port = 3000
+const express = require('express')
+const app = express()
+const port = process.env.PORT || 3000;
 
+const users = [
+  {name: "Shivam", age: 21}, 
+  {name: "Shubham", age: 21}
+]
+
+//Get Req
 // app.get('/', (req, res) => {
-//   res.send('Hello World!')
+//   res.send('<h1>Home Page</h1>')
 // })
 
 // app.get('/user/details', (req, res) => {
 //     console.log("User Detals", req.query);
 //     let userDetails = req.query;
-//     res.send("Data send krra");
+//     console.log("Name ", req.query.name);
+//     console.log("Age ", req.query.age);
+//     res.send(userDetails);
 //   })
 // app.listen(port, () => {
 //   console.log(`Example app listening on port ${port}`)
 // })
 
 
-// const express = require("express");
-// const app = express();
-// app.get('/', (req, res)=>{
-//     res.send("Heelo");
-// })
-// app.listen(3000, ()=>{
-//     console.log("Server listening on port 3000");
-// })
 
 
 
-// const express = require('express');
-// const app = express();
-// const bodyParser = require('body-parser');
+//Post req
+const bodyParser = require('body-parser');
 
-// app.use(bodyParser.json());
+app.use(bodyParser.json());
 
 // app.post('/api/data', (req, res) => {
-//   const data = req.query;
+//   const data = req.body;
 //   console.log(data);
 //   res.send('Data received successfully');
 // });
 
-// const port = process.env.PORT || 3000;
-// app.listen(port, () => {
-//   console.log(`Server is listening on port ${port}`);
-// });
+//Adding a member
+app.post("/api/data", (req, res)=>{
+  const newUser = req.body;
+  users.push(newUser);
+  console.log(`New User added successfully`, newUser);
+  res.json(users);
+})
 
-
-
-
-var express = require('express');
-var bodyParser = require('body-parser');
-var app = express();
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json())
-
-var port = 3000;
-
-app.post('/sample/put/data', function(req, res) {
-    console.log('receiving data ...');
-    console.log('body is ',req.body);
-    res.send(req.body);
+app.listen(port, () => {
+  console.log(`Server is listening on port ${port}`);
 });
 
-// start the server
-app.listen(port);
-console.log('Server started! At http://localhost:' + port);
+
